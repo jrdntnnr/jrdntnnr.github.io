@@ -4,7 +4,7 @@ header_pages:
   - index.md
   - contact.md
 
-footer: <a href="https://instagram.com/jrdntnnr">instagram</a> <a href="https://twitter.com/jrdntnnr">twitter</a>
+footer: <a href="https://instagram.com/jrdntnnr">Instagram</a> <a href="https://twitter.com/jrdntnnr">Twitter</a>
 
 plugins:
   - jekyll-seo-tag
