@@ -1,1 +1,24 @@
-remote_theme: b2a3e8/jekyll-theme-console
+remote_theme: jrdntnnr/jekyll-theme-console
+
+header_pages:
+  - index.md
+  - contact.md
+
+footer: <a href="https://instagram.com/jrdntnnr">instagram</a> <a href="https://twitter.com/jrdntnnr">twitter</a>
+
+plugins:
+  - jekyll-seo-tag
+  
+description: Jordan Tanner - Computer art, painting and sculpture.
+
+url: jrdntnnr.ml
+
+twitter:
+  username: jrdntnnr
+  card: summary
+  
+social:
+  name: Jordan Tanner
+  links:
+    - https://twitter.com/jrdntnnr
+    - https://instagram.com/jrdntnnr
