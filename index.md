@@ -1,5 +1,5 @@
 ---
-title: jrdntnnr
+title: /jrdntnnr
 layout: home
 permalink: /
 ---
