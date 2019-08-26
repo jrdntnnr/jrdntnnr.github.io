@@ -23,4 +23,11 @@ social:
     - https://twitter.com/jrdntnnr
     - https://instagram.com/jrdntnnr
 
+---
+  og_title: Jordan Tanner
+  og_description: Computer art, painting and sculpture.
+  og_image: /assets/og.png
+  og_type: website
+---
+
 google_analytics: UA-146460904-1
