@@ -1,4 +1,4 @@
-# Tel Aviv Illustration week 2017
+# Tel Aviv Illustration week, 2017
 Future / Divination / Futurology
 
 <br/>
