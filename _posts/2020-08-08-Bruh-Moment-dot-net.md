@@ -6,6 +6,7 @@ Low poly .glb 3D logo for [Bruhmoment.net](https://bruhmoment.net)
 <style>
   model-viewer#reveal {
     --poster-color: transparent;
+    outline: none;
   }
 </style>
 <model-viewer id="reveal" loading="eager" camera-controls auto-rotate src="/assets/bruh.glb" alt="A Bruh Moment Certificate"></model-viewer>
