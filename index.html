@@ -1,6 +1,187 @@
+<head>
+  <script>
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+      define(function() {
+        return factory(root);
+      });
+    } else if (typeof exports === 'object') {
+      module.exports = factory;
+    } else {
+      root.echo = factory(root);
+    }
+  })(this, function (root) {
+
+    'use strict';
+
+    var echo = {};
+
+    var callback = function () {};
+
+    var offset, poll, delay, useDebounce, unload;
+
+    var isHidden = function (element) {
+      return (element.offsetParent === null);
+    };
+
+    var inView = function (element, view) {
+      if (isHidden(element)) {
+        return false;
+      }
+
+      var box = element.getBoundingClientRect();
+      return (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b);
+    };
+
+    var debounceOrThrottle = function () {
+      if(!useDebounce && !!poll) {
+        return;
+      }
+      clearTimeout(poll);
+      poll = setTimeout(function(){
+        echo.render();
+        poll = null;
+      }, delay);
+    };
+
+    echo.init = function (opts) {
+      opts = opts || {};
+      var offsetAll = opts.offset || 0;
+      var offsetVertical = opts.offsetVertical || offsetAll;
+      var offsetHorizontal = opts.offsetHorizontal || offsetAll;
+      var optionToInt = function (opt, fallback) {
+        return parseInt(opt || fallback, 10);
+      };
+      offset = {
+        t: optionToInt(opts.offsetTop, offsetVertical),
+        b: optionToInt(opts.offsetBottom, offsetVertical),
+        l: optionToInt(opts.offsetLeft, offsetHorizontal),
+        r: optionToInt(opts.offsetRight, offsetHorizontal)
+      };
+      delay = optionToInt(opts.throttle, 250);
+      useDebounce = opts.debounce !== false;
+      unload = !!opts.unload;
+      callback = opts.callback || callback;
+      echo.render();
+      if (document.addEventListener) {
+        root.addEventListener('scroll', debounceOrThrottle, false);
+        root.addEventListener('load', debounceOrThrottle, false);
+      } else {
+        root.attachEvent('onscroll', debounceOrThrottle);
+        root.attachEvent('onload', debounceOrThrottle);
+      }
+    };
+
+    echo.render = function (context) {
+      var nodes = (context || document).querySelectorAll('[data-echo], [data-echo-background]');
+      var length = nodes.length;
+      var src, elem;
+      var view = {
+        l: 0 - offset.l,
+        t: 0 - offset.t,
+        b: (root.innerHeight || document.documentElement.clientHeight) + offset.b,
+        r: (root.innerWidth || document.documentElement.clientWidth) + offset.r
+      };
+      for (var i = 0; i < length; i++) {
+        elem = nodes[i];
+        if (inView(elem, view)) {
+
+          if (unload) {
+            elem.setAttribute('data-echo-placeholder', elem.src);
+          }
+
+          if (elem.getAttribute('data-echo-background') !== null) {
+            elem.style.backgroundImage = 'url(' + elem.getAttribute('data-echo-background') + ')';
+          }
+          else if (elem.src !== (src = elem.getAttribute('data-echo'))) {
+            elem.src = src;
+          }
+
+          if (!unload) {
+            elem.removeAttribute('data-echo');
+            elem.removeAttribute('data-echo-background');
+          }
+
+          callback(elem, 'load');
+        }
+        else if (unload && !!(src = elem.getAttribute('data-echo-placeholder'))) {
+
+          if (elem.getAttribute('data-echo-background') !== null) {
+            elem.style.backgroundImage = 'url(' + src + ')';
+          }
+          else {
+            elem.src = src;
+          }
+
+          elem.removeAttribute('data-echo-placeholder');
+          callback(elem, 'unload');
+        }
+      }
+      if (!length) {
+        echo.detach();
+      }
+    };
+
+    echo.detach = function () {
+      if (document.removeEventListener) {
+        root.removeEventListener('scroll', debounceOrThrottle);
+      } else {
+        root.detachEvent('onscroll', debounceOrThrottle);
+      }
+      clearTimeout(poll);
+    };
+
+    return echo;
+
+  });
+</script>
+<script>
+    echo.init({
+      offset: 2500,
+      throttle: 250,
+      unload: false,
+      callback: function (element, op) {
+        //console.log(element, 'has been', op + 'ed')
+      }
+    });
+</script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <title>
+
+      Jordan Tanner | Englishman in Tel Aviv
+
+  </title>
+  <meta name="description" content="Computer art, painting and sculpture.">
+  <meta property="og:title" content="Jordan Tanner | Englishman in Tel Aviv">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:description" content="Computer art, painting and sculpture.">
+  <meta property="og:url" content="jrdntnnr.ml/">
+  <meta property="og:image" content="assets/og.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@jrdntnnr">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#000000">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+  <script type="application/ld+json">
+  {"headline":"/jrdntnnr","sameAs":["https://twitter.com/jrdntnnr","https://instagram.com/jrdntnnr"],"@type":"WebSite","url":"jrdntnnr.ml/","name":"Jordan Tanner","description":"Jordan Tanner - Computer art, painting and sculpture.","@context":"http://schema.org"}</script><link rel="stylesheet" type="text/css" href="/jrdntnnr.ml-iframe/assets/main-dark.css"><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-146460904-1"></script>
+<script>
+  window['ga-disable-UA-146460904-1'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-146460904-1');
+</script>
+</head>
+<style type="text/css">.fc-ab-root { display: none !important } body > div.fc-ab-root { display: none !important } .fbs-auth__container.fbs-auth__adblock { display: none !important } .overlay-34_Kj { display: none !important } .wrapper-3AzfF { display: none !important } .fEy1Z2XT { display: none !important } .nytc---modal-window---windowContainer.nytc---modal-window---isShown.nytc---shared---blackBG { display: none !important } .tp-modal { display: none !important } .tp-backdrop.tp-active { display: none !important } .c-nudge__container.c-gate__container { display: none !important } .c-nudge__container.c-regGate__container { display: none !important } .css-n7r8pg { display: none !important } .css-1bd8bfl { display: none !important } .overlay__59af11e2 { display: none !important } .tp_modal { display: none !important } .tp-backdrop.tp-active { display: none !important } div[class^='sp_message_container'] { display: none !important } div[class^='sp_veil'] { display: none !important } </style></head>
+
 <div class="aframe-wrapper">
 <iframe src="https://jrdntnnr.ml/aframe.html" style="border:none; width: 100%; height: 100%;"></iframe>
 </div>
 <div>
-  <iframe src="https://jrdntnnr.ml/jrdntnnr.ml-iframe/" style="border:none; width: 100%; height: 100%;"></iframe>
+  <iframe src="https://jrdntnnr.ml/jrdntnnr.ml-iframe/" style="border:none;width: 100%;height: 100%;width: 100%;height: 100%;display: block;position: absolute;top: 0px;left: 0px;position:absolute;"></iframe>
 </div>
