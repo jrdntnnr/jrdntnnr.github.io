@@ -4,13 +4,13 @@
   var ua = navigator.userAgent.toLowerCase();
   var isAndroid = ua.indexOf('android') > -1;
 
-  var videoDiv = document.getElementById('arbg');
+  var arDiv = document.getElementById('arbg');
 
   if(isAndroid) {
-    videoDiv.innerHTML = '<iframe src="https://jrdntnnr.ml/aframe.html" style="border:none; width: 100%; height: 100%;"></iframe>';
+    arDiv.innerHTML = '<iframe src="https://jrdntnnr.ml/aframe.html" style="border:none; width: 100%; height: 100%;"></iframe>';
   } else {
     //add something else
-    videoDiv.innerHTML = '';
+    arDiv.innerHTML = '<a>TEST</a>';
   }
   </script>
 
