@@ -1,5 +1,5 @@
 # JStark NFT for Popular Front
-Produced a 3D holographic NFT of JStark for [Popular Front](https://www.popularfront.co/), minted on [Foundation](https://foundation.app/@popularfront/jstark-nft-35287).
+Produced a 3D holographic NFT of JStark for [Popular Front](https://www.popularfront.co/), minted on [Foundation](https://foundation.app/@popularfront/jstark-nft-35287)
 <br/>
 <div className="nft-embed"></div>
 <script
