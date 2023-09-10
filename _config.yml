@@ -6,7 +6,7 @@ header_pages:
 
 footer: <a href="https://instagram.com/jrdntnnr">Instagram</a> <a href="https://twitter.com/jrdntnnr">Twitter</a>
 
-google_analytics: UA-146460904-1
+google_analytics: 
 
 plugins:
   - jekyll-seo-tag
